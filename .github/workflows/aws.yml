@@ -37,7 +37,7 @@ env:
   ECS_CLUSTER: ${{ vars.PROJECT_ECS_CLUSTER }}                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: ${{ vars.PROJECT_ECS_TASK_DEFINITION }} # set this to the path to your Amazon ECS task definition file, e.g. .aws/task-definition.json
   CONTAINER_NAME: ${{ vars.PROJECT_ECS_CONTAINER_NAME }}           # set this to the name of the container in the containerDefinitions section of your task definition
-
+  ECS_REGISTRY_ALIAS: ${{ vars.PROJECT_ECS_REGISTRY_ALIAS }}
 permissions:
   contents: read
 
@@ -64,15 +64,6 @@ jobs:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
 
-      - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASSWORD}}
-
-      - name: Build Docker image
-        run: docker build . --file Dockerfile --platform linux/amd64 --tag mpashworth/gym-buddie:latest
-
-      - name: Publish Docker image to Docker Hub
-        run: docker push mpashworth/gym-buddie:latest
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -92,12 +83,15 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
-          DOCKER_TAG: $ECR_REGISTRY/c7r3g6m8/$ECR_REPOSITORY:$IMAGE_TAG
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: public.ecr.aws/c7r3g6m8/mpashworth:gym-buddie
+          tags: ${{ env.ECR_REGISTRY }}/${{ env.ECS_REGISTRY_ALIAS }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+
+      - name: Echo
+        id: echo
+        run: echo ${{ env.ECR_REGISTRY }}/${{ env.ECS_REGISTRY_ALIAS }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
@@ -108,7 +102,7 @@ jobs:
           image: ${{ steps.build-image.outputs.imageid }}
 
       - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE }}
