@@ -68,10 +68,10 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASSWORD}}
 
       - name: Build Docker image
-        run: docker build . --file Dockerfile --platform linux/amd64 --tag gymbuddie:"$(date +%s)"
+        run: docker build . --file Dockerfile --platform linux/amd64 --tag gym-buddie:"$(date +%s)"
 
       - name: Publish Docker image to Docker Hub
-        run: docker push markash/GymBuddie:latest
+        run: docker push mpashworth/gym-buddie:latest
 
   deploy:
     name: Deploy
