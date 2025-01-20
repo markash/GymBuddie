@@ -104,7 +104,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: $ECR_REGISTRY/c7r3g6m8/mpashworth:gym-buddie:latest
+        tags: public.ecr.aws/c7r3g6m8/mpashworth:gym-buddie
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
