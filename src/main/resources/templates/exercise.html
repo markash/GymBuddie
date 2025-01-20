@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>fragments</title>
+</head>
+<body>
+    <tbody id="exercise-rows" th:fragment="exercise-rows">
+        <tr th:each="exercise: ${exercises}">
+            <td th:text="${exercise.name}">Exercise</td>
+            <td th:text="${exercise.sets}">0</td>
+            <td th:each="rep: ${exercise.repetitions}">
+                <div th:switch="${rep.state}">
+                    <button th:case="${states.New}" th:text="${rep.value}" class="secondary" hx-post="/repetitionState" hx-trigger="click" hx-target="#exercise-rows" hx-swap="outerHTML" hx:vals="${ {exerciseId: exercise.id, repetitionId: rep.id } }" >0</button>
+                    <button th:case="${states.Done}" th:text="${rep.value}" class="primary" hx-post="/repetitionState" hx-trigger="click" hx-target="#exercise-rows" hx-swap="outerHTML" hx:vals="${ {exerciseId: exercise.id, repetitionId: rep.id } }" >0</button>
+                    <button th:case="${states.Skip}" th:text="${rep.value}" class="secondary" disabled hx-post="/repetitionState" hx-trigger="click" hx-target="#exercise-rows" hx-swap="outerHTML" hx:vals="${ {exerciseId: exercise.id, repetitionId: rep.id } }" >0</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</body>
