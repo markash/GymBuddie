@@ -102,7 +102,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: $DOCKER_TAG
+        tags: $ECR_REGISTRY/c7r3g6m8/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
