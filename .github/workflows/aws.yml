@@ -92,7 +92,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v2
 
     - name: List directory
-      run: ls -d */
+      run: ls
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
