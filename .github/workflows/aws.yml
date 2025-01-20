@@ -90,15 +90,6 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
-      with:
-        registry-type: public
-
-    - name: List directory
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-        DOCKER_TAG: "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-      run: echo "$DOCKER_TAG"
 
     - name: Build and push Docker image
       id: push
@@ -106,7 +97,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
-        DOCKER_TAG: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        DOCKER_TAG: $ECR_REGISTRY/c7r3g6m8/$ECR_REPOSITORY:$IMAGE_TAG
       with:
         context: .
         file: ./Dockerfile
@@ -122,7 +113,7 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        docker build . --file Dockerfile --platform linux/amd64 --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker build . --file Dockerfile --platform linux/amd64 --tag $ECR_REGISTRY/c7r3g6m8/$ECR_REPOSITORY:$IMAGE_TAG
         #docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
