@@ -73,6 +73,31 @@ jobs:
       - name: Publish Docker image to Docker Hub
         run: docker push mpashworth/gym-buddie:latest
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
+
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+          DOCKER_TAG: $ECR_REGISTRY/c7r3g6m8/$ECR_REPOSITORY:$IMAGE_TAG
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: public.ecr.aws/c7r3g6m8/mpashworth:gym-buddie
   deploy:
     name: Deploy
     needs: build
@@ -80,32 +105,6 @@ jobs:
     environment: production
 
     steps:
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
-      with:
-        registry-type: public
-
-    - name: Build and push Docker image
-      id: push
-      uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-        DOCKER_TAG: $ECR_REGISTRY/c7r3g6m8/$ECR_REPOSITORY:$IMAGE_TAG
-      with:
-        context: .
-        file: ./Dockerfile
-        push: true
-        tags: public.ecr.aws/c7r3g6m8/mpashworth:gym-buddie
-
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
