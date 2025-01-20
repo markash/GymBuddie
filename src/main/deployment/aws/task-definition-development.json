@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-2:590183895941:task-definition/task-definition-development:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:590183895941:task-definition/task-definition-development:1",
     "containerDefinitions": [
         {
             "name": "GymBuddie",
-            "image": "public.ecr.aws/c7r3g6m8/markash/public",
+            "image": "sha256:0eba91d186a15cb95928ff05880d38c7e65f77a9d1883558518ee5e943d5e71f",
             "cpu": 1024,
             "memory": 3072,
             "memoryReservation": 1024,
@@ -18,10 +18,8 @@
             ],
             "essential": true,
             "environment": [],
-            "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
-            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -31,8 +29,7 @@
                     "max-buffer-size": "25m",
                     "awslogs-region": "us-east-2",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         }
@@ -83,7 +80,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2025-01-20T10:35:01.673Z",
+    "registeredAt": "2025-01-20T13:47:35.937Z",
     "registeredBy": "arn:aws:iam::590183895941:root",
     "enableFaultInjection": false,
     "tags": []
