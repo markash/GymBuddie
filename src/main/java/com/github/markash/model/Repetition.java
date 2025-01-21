@@ -11,8 +11,8 @@ public class Repetition {
 	public void moveToNextState() {
 		State nextState = switch (state) {
 			case New -> State.Done;
-			case Done -> State.Skip;
-			case Skip -> State.New;
+			case Done -> State.New;
+			case Skip -> State.Skip;
 		};
 		setState(nextState);
 	}

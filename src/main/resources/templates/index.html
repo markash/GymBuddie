@@ -10,43 +10,22 @@
     <script src="https://unpkg.com/htmx.org@2.0.1"></script>
 </head>
 <body>
-<main class="container">
-    <section>
-        <h1>Htmx Demo</h1>
-        <div id="parent-div"></div>
-        <button hx-post="/clicked"
-                hx-trigger="click"
-                hx-target="#parent-div"
-                hx-swap="outerHTML">
-            Click Me!
-        </button>
+<header>
+    <nav>
+        <hgroup>
+            <h1>Gym Buddie</h1>
+            <h3>Lorem ipsum for some really awesome application</h3>
+        </hgroup>
+        <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Products</a></li>
+        </ul>
+    </nav>
+</header>
+<main class="container-fluid">
+    <section th:replace="~{exercise::workout-section}">
     </section>
-
-    <section>
-        <table>
-            <thead>
-                <tr>
-                    <td>Exercise</td>
-                    <td>Sets</td>
-                    <td colspan="10">Reps</td>
-                </tr>
-            </thead>
-            <tbody th:replace="~{exercise::exercise-rows}">
-
-            </tbody>
-        </table>
-        <input type="text"
-               name="q"
-               hx-get="/search"
-               hx-trigger="keyup changed delay:500ms"
-               hx-target="#search-results"
-               placeholder="Search..."
-        >
-        <div th:replace="search::results">
-        </div>
-        <div th:replace="search::test"></div>
-    </section>
-
 </main>
 </body>
 </html>
