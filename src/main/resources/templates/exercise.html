@@ -11,24 +11,22 @@
             <h1 th:text="${workout.name}">15-minute workout</h1>
             <p th:text="${workout.description}">Do 50 reps of each move then 40 down to 10.</p>
         </hgroup>
-        <table>
-            <thead>
-            <tr>
-                <td>Exercise</td>
-                <td>Sets</td>
-                <td colspan="10">Reps</td>
-            </tr>
-            </thead>
-            <tbody th:replace="~{exercise::exercise-rows(exercises=${workout.exercises})}"></tbody>
-        </table>
+
+        <th:block th:replace="~{exercise::exercise-articles(exercises=${workout.exercises})}">
+        <article>
+            <h1>Test</h1>
+            <button class="secondary" style="width: 60px" >10</button>
+            <button class="secondary" style="width: 60px">3</button>
+        </article>
+        </th:block>
         </th:block>
     </section>
 
     <tbody id="exercise-rows" th:fragment="exercise-rows(exercises)">
         <tr th:each="exercise: ${exercises}">
-            <td th:text="${exercise.name}">Exercise</td>
-            <td th:text="${exercise.sets}">0</td>
-            <td>
+            <td th:text="${exercise.name}" class="col-exercise">Exercise</td>
+            <td th:text="${exercise.sets}" class="col-sets">0</td>
+            <td class="col-exercise">
                 <th:block th:each="rep: ${exercise.repetitions}" th:switch="${rep.state}">
                     <button th:case="${states.New}" th:text="${rep.value}" class="secondary" hx-post="/repetitionState" hx-trigger="click" hx-target="#workout-section" hx-swap="outerHTML" hx:vals="${ {exerciseId: exercise.id, repetitionId: rep.id } }" >0</button>
                     <button th:case="${states.Done}" th:text="${rep.value}" class="primary" hx-post="/repetitionState" hx-trigger="click" hx-target="#workout-section" hx-swap="outerHTML" hx:vals="${ {exerciseId: exercise.id, repetitionId: rep.id } }" >0</button>
@@ -37,4 +35,18 @@
             </td>
         </tr>
     </tbody>
+
+    <div id="exercise-articles" th:fragment="exercise-articles(exercises)">
+        <th:block th:each="exercise: ${exercises}">
+            <article>
+                <h2><span style="color: orange" th:text="${exercise.exerciseNumber}">01</span><span th:text="${exercise.name}">Exercise</span></h2>
+                <p th:text="${exercise.description}">Description</p>
+                <th:block th:each="rep: ${exercise.repetitions}" th:switch="${rep.state}">
+                    <button th:case="${states.New}" th:text="${rep.value}" class="secondary" hx-post="/repetitionState" hx-trigger="click" hx-target="#workout-section" hx-swap="outerHTML" hx:vals="${ {exerciseId: exercise.id, repetitionId: rep.id } }" >0</button>
+                    <button th:case="${states.Done}" th:text="${rep.value}" class="primary" hx-post="/repetitionState" hx-trigger="click" hx-target="#workout-section" hx-swap="outerHTML" hx:vals="${ {exerciseId: exercise.id, repetitionId: rep.id } }" >0</button>
+                    <button th:case="${states.Skip}" th:text="${rep.value}" class="secondary" disabled hx-post="/repetitionState" hx-trigger="click" hx-target="#workout-section" hx-swap="outerHTML" hx:vals="${ {exerciseId: exercise.id, repetitionId: rep.id } }" >0</button>
+                </th:block>
+            </article>
+        </th:block>
+    </div>
 </body>

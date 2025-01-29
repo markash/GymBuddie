@@ -1,27 +1,39 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Gym Buddie</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="color-scheme" content="light dark"/>
-    <title>Htmx Demo</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <script src="https://unpkg.com/htmx.org@2.0.1"></script>
+    <style>
+        .col-exercise {
+            width: 70%;
+        }
+        .col-sets {
+            width: 10%;
+        }
+        .col-exercise {
+            width: 20%;
+        }
+    </style>
 </head>
 <body>
 <header>
-    <nav>
-        <hgroup>
-            <h1>Gym Buddie</h1>
-            <h3>Lorem ipsum for some really awesome application</h3>
-        </hgroup>
-        <ul>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Products</a></li>
-        </ul>
-    </nav>
+    <div class="container-fluid">
+        <nav>
+            <hgroup>
+                <h1>Gym Buddie</h1>
+                <h3>Lorem ipsum for some really awesome application</h3>
+            </hgroup>
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Products</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 <main class="container-fluid">
     <section th:replace="~{exercise::workout-section}">

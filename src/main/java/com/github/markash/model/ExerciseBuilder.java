@@ -19,8 +19,18 @@ public class ExerciseBuilder {
 		return this;
 	}
 
+	public ExerciseBuilder number(Integer number) {
+		this.exercise.setNumber(number);
+		return this;
+	}
+
 	public ExerciseBuilder name(String name) {
 		this.exercise.setName(name);
+		return this;
+	}
+
+	public ExerciseBuilder description(String description) {
+		this.exercise.setDescription(description);
 		return this;
 	}
 
