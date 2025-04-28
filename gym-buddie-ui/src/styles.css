@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.app-title {
+  text-align: left;
+}
+
+.col-exercise {
+  width: 70%;
+}
+.col-sets {
+  width: 10%;
+}
+.col-exercise {
+  width: 20%;
+}
