@@ -1269,7 +1269,7 @@ graphemer@^1.4.0:
   dependencies:
     "@picocss/pico" "2.1.1"
     "@tailwindcss/vite" "^4.1.4"
-    gym-buddie-ui "file:../../../../Users/mpash/AppData/Local/Yarn/Cache/v6/npm-gym-buddie-ui-0.1.0-e563b328-751b-4010-832b-70e193ef6162-1745837107154/node_modules/gym-buddie-ui"
+    gym-buddie-ui "file:../../../../Users/mpash/AppData/Local/Yarn/Cache/v6/npm-gym-buddie-ui-0.1.0-d2cb04c5-a930-4a8c-98bd-ea8a86323614-1745950662166/node_modules/gym-buddie-ui"
     react "^19.1.0"
     react-dom "^19.1.0"
 

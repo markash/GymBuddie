@@ -5,6 +5,7 @@
   "description": "",
   "keywords": [],
   "type": "module",
+  "proxy": "http://localhost:7001",
   "dependencies": {
     "@picocss/pico": "2.1.1",
     "@tailwindcss/vite": "^4.1.4",

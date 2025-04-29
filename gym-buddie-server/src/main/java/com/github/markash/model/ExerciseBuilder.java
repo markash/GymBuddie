@@ -39,7 +39,7 @@ public class ExerciseBuilder {
 		return this;
 	}
 
-	public ExerciseBuilder repetitions(Repetition...repetition) {
+	public ExerciseBuilder repetitions(Set...repetition) {
 		this.exercise.addRepetitions(repetition);
 		return this;
 	}

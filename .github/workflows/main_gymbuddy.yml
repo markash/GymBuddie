@@ -3,12 +3,13 @@
 
 name: Build and deploy JAR app to Azure Web App - gymbuddy
 
-on:
+'on':
   push:
     branches:
       - main
   workflow_dispatch:
 
+    null
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,45 +23,54 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '21'
-          distribution: 'microsoft'
+          distribution: microsoft
 
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Upload artifact for deployment job
+      - name: Upload client artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          name: gym-buddie-client
+          path: ${{ github.workspace }}/gym-buddie-client/target/*.jar
+
+      - name: Upload server artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: gym-buddie-server
+          path: ${{ github.workspace }}/gym-buddie-server/target/*.jar
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: Production
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
-  
+
     steps:
-      - name: Download artifact from build job
+      - name: Download server artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: java-app
-      
+          name: gym-buddie-server
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D4F785D6ED704383B7E8A11F3278D1BA }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_DFE6E3F45A5943B7BBD160135A95B155 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6BC2E16AD3324A9E869A0F0BDF5A1ECC }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D4F785D6ED704383B7E8A11F3278D1BA
+            }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_DFE6E3F45A5943B7BBD160135A95B155
+            }}
+          subscription-id: ${{
+            secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6BC2E16AD3324A9E869A0F0BDF5A1ECC
+            }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'gymbuddy'
-          slot-name: 'Production'
+          app-name: gym-buddie-server
+          slot-name: Production
           package: '*.jar'
-          

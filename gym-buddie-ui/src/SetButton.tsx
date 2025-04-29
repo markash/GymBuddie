@@ -1,9 +1,15 @@
 import { useState } from "react";
 
+export enum State {
+	New,
+	Done,
+	Skip
+}
+
 export interface SetProps {
   id: Number, 
   repetition: Number, 
-  done: Boolean
+  state: State
 }
 
 export default function SetButton({set} : {set: SetProps}) {
@@ -14,7 +20,7 @@ export default function SetButton({set} : {set: SetProps}) {
   return (
     <button
       key={exerciseSet.id.toString()}
-      className={exerciseSet.done ? "primary" : "secondary"}
+      className={exerciseSet.state == State.Done ? "primary" : "secondary"}
       onClick={handleClick}
     >
       {exerciseSet.repetition.toString()}

@@ -3,10 +3,10 @@ package com.github.markash.model;
 import lombok.Data;
 
 @Data
-public class Repetition {
+public class Set {
 	private Integer id;
 	private State state;
-	private Integer value;
+	private Integer repetition;
 
 	public void moveToNextState() {
 		State nextState = switch (state) {

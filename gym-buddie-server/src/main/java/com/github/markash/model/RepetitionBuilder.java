@@ -2,12 +2,12 @@ package com.github.markash.model;
 
 public class RepetitionBuilder {
 
-	private final Repetition repetition;
+	private final Set repetition;
 	private final ExerciseBuilder exerciseBuilder;
 
 	RepetitionBuilder(ExerciseBuilder exerciseBuilder) {
 		this.exerciseBuilder = exerciseBuilder;
-		this.repetition = new Repetition();
+		this.repetition = new Set();
 		this.repetition.setState(State.New);
 	}
 
@@ -22,7 +22,7 @@ public class RepetitionBuilder {
 	}
 
 	public RepetitionBuilder value(final int value) {
-		this.repetition.setValue(value);
+		this.repetition.setRepetition(value);
 		return this;
 	}
 

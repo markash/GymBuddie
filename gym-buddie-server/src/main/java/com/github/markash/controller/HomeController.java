@@ -1,7 +1,7 @@
 package com.github.markash.controller;
 
 import com.github.markash.model.Exercise;
-import com.github.markash.model.Repetition;
+import com.github.markash.model.Set;
 import com.github.markash.model.State;
 import com.github.markash.model.Workout;
 import org.springframework.stereotype.Controller;
@@ -22,6 +22,7 @@ public class HomeController {
 	static List<Workout> workouts =
 			List.of(
 					Workout.define()
+							.id(100)
 							.name("15-minute workout")
 							.description("Do 50 reps of each move then 40 down to 10.")
 								.exercise().id(1).number(1).name("Push-up").weight(35.0).description("Assume a plank position, hands below your elbows and shoulders.<br/>Slowly bend your elbows to lower your chest to the floor (A). Keep your upper arms from flaring as you explosively push up to a straight arm position (B). Repeat.")
@@ -40,6 +41,7 @@ public class HomeController {
 								.end()
 							.build(),
 					Workout.define()
+							.id(200)
 							.name("Gym workout")
 								.exercise().id(3).number(1).name("Assisted Chin (w)").weight(35.0).description("Perform the assisted chin-up with on the widest grip setting.")
 									.repetition().id(1).value(10).end()
@@ -114,11 +116,11 @@ public class HomeController {
 				.filter(e -> e.getId().equals(exerciseId))
 				.findFirst()
 				.orElse(new Exercise())
-				.getRepetitions()
+				.getSets()
 				.stream()
 				.filter(r -> r.getId().equals(repetitionId))
 				.findFirst()
-				.ifPresent(Repetition::moveToNextState));
+				.ifPresent(Set::moveToNextState));
 	}
 
 	@PostMapping("/clicked")

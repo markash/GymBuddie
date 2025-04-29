@@ -8,6 +8,11 @@ public class WorkoutBuilder {
 		this.workout = new Workout();
 	}
 
+	public WorkoutBuilder id(final Integer id) {
+		this.workout.setId(id);
+		return this;
+	}
+
 	public WorkoutBuilder name(final String name) {
 		this.workout.setName(name);
 		return this;
