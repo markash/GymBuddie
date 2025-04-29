@@ -21,17 +21,17 @@ jobs:
       - name: Set up Java version
         uses: actions/setup-java@v4
         with:
-          java-version: 'java21'
+          java-version: '21'
           distribution: 'microsoft'
 
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Upload artifact for deployment job
+      - name: Upload server artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          name: gym-buddie-server
+          path: '${{ github.workspace }}/gym-buddie-server/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -44,10 +44,10 @@ jobs:
       contents: read #This is required for actions/checkout
   
     steps:
-      - name: Download artifact from build job
+      - name: Download server artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: java-app
+          name: gym-buddie-server
       
       - name: Login to Azure
         uses: azure/login@v2
