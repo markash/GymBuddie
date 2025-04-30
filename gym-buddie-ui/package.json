@@ -9,12 +9,14 @@
   "dependencies": {
     "@picocss/pico": "2.1.1",
     "@tailwindcss/vite": "^4.1.4",
+    "dotenv": "^16.5.0",
     "gym-buddie-ui": "file:",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
+    "@types/node": "^22.15.3",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
@@ -29,7 +31,7 @@
     "vite": "^6.3.1"
   },
   "scripts": {
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build --mode development",
     "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview"

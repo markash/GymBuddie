@@ -4,7 +4,6 @@ import Exercises from "./Exercises.tsx";
 import { ExerciseProps } from "./Exercise.tsx";
 import { State } from "./SetButton.tsx";
 
-
 const data = [
   {
     id: 100,
@@ -58,7 +57,12 @@ export default function App() {
   const [workouts, setWorkouts] = useState<Workout[]>(data);
 
   useEffect(() => {
-    fetch('http://localhost:7001/workouts')
+
+    const apiBaseUrl = 'https://gym-buddie-server-byckeug5epgqe2gm.canadacentral-01.azurewebsites.net/';
+
+    const url = apiBaseUrl + '/workouts';
+
+    fetch(url)
       .then((response) => {
         return response.json();
       })

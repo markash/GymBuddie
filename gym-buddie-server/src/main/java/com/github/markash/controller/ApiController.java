@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.markash.model.Workout;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:8080"})
+@CrossOrigin
 public class ApiController {
     
     @GetMapping(path = "/workouts")
