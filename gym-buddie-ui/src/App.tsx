@@ -57,12 +57,7 @@ export default function App() {
   const [workouts, setWorkouts] = useState<Workout[]>(data);
 
   useEffect(() => {
-
-    const apiBaseUrl = 'https://gym-buddie-server-byckeug5epgqe2gm.canadacentral-01.azurewebsites.net/';
-
-    const url = apiBaseUrl + '/workouts';
-
-    fetch(url)
+    fetch(`${import.meta.env.VITE_API_URL}/workouts`)
       .then((response) => {
         return response.json();
       })

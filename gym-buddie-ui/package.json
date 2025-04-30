@@ -32,9 +32,10 @@
   },
   "scripts": {
     "build": "tsc -b && vite build --mode development",
-    "dev": "vite",
+    "dev": "vite --mode production",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "package": "tsc -b && vite build --mode production"
   },
   "browserslist": [
     ">0.2%",
