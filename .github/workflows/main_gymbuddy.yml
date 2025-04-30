@@ -71,6 +71,8 @@ jobs:
           slot-name: Production
           package: '*server*.jar'
 
+      - run: echo ${{ secrets.GITHUB_TOKEN }}
+
       - name: Get server deployment URL
         id: deployment-url-server
         uses: dorshinar/get-deployment-url@master
@@ -82,7 +84,9 @@ jobs:
 
   deploy-client:
     runs-on: ubuntu-latest
-    needs: build
+    needs: 
+      - build
+      - deploy-server 
     environment:
       name: Production
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
