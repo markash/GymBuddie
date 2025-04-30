@@ -26,7 +26,7 @@ jobs:
           distribution: microsoft
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn -f ./gym-buddie-server/pom.xml clean install
 
       - name: Upload client artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -70,6 +70,15 @@ jobs:
           app-name: gym-buddie-server
           slot-name: Production
           package: '*server*.jar'
+
+      - name: Get server deployment URL
+        id: deployment-url-server
+        uses: dorshinar/get-deployment-url@master
+        timeout-minutes: 5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: echo ${{ steps.deployment-url-server.outputs.deployment }}
 
   deploy-client:
     runs-on: ubuntu-latest
