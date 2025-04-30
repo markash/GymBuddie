@@ -2,11 +2,17 @@ import SetButton from "./SetButton.tsx";
 import { SetProps } from "./SetButton.tsx";
 
 export interface ExerciseProps {
+  /** The unique identifier for the exercise */
   id: Number,
+  /** The number of the exercise in the workout */
   number: Number,
+  /** The name of the exercise */
   name: String,
+  /** The description of the exercise */
   description: String,
+  /** The weight setting on the equipment of the exercise */
   weight: Number,
+  /** The sets of the exercise */
   sets: SetProps[]
 }
 
@@ -20,7 +26,7 @@ export default function Exercise({exercise}: {exercise: ExerciseProps}) {
       <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">{exercise.description}</p>
 
       {exercise.sets.map((set: SetProps) => (
-        <SetButton set={set} />
+        <SetButton key={set.id.toString()} set={set} />
       ))}
     </article>
   );

@@ -1,0 +1,19 @@
+services:
+  client:
+    build: ./gym-buddie-client
+    ports:
+      - "8080:8080"
+    depends_on:
+     - "server"
+    environment:
+      NODE_ENV: development
+    stdin_open: true
+    tty: true
+  server:
+    build: ./gym-buddie-server
+    ports:
+      - "7001:7001"
+    environment:
+      NODE_ENV: development
+    stdin_open: true
+    tty: true

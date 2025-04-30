@@ -3,7 +3,6 @@ package com.github.markash.model;
 import lombok.Data;
 
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,19 +22,19 @@ public class Exercise {
 	/** The weight setting on the equipment of the exercise */
 	private Double weight;
 
-	private final List<Repetition> repetitions = new ArrayList<>();
+	private final List<Set> sets = new ArrayList<>();
 
-	public void addRepetitions(Repetition[] repetitions) {
+	public void addRepetitions(Set[] repetitions) {
 		Arrays.stream(repetitions).forEach(this::addRepetition);
 	}
 
-	public void addRepetition(Repetition repetition) {
-		this.repetitions.add(repetition);
+	public void addRepetition(Set repetition) {
+		this.sets.add(repetition);
 	}
 
 	public String getExerciseNumber() { return Optional.ofNullable(this.number).map(n -> new DecimalFormat("00").format(n)).orElse("00"); }
 
-	public Integer getSets() { return repetitions.size(); }
+	public Integer getNoOfSets() { return sets.size(); }
 
 	public static ExerciseBuilder define() {
 		return new ExerciseBuilder();
