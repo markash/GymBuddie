@@ -10,7 +10,7 @@
 #
 # 2. Create an ECS task definition, an ECS cluster, and an ECS service.
 #    For example, follow the Getting Started guide on the ECS console:
-#      https://us-east-2.console.aws.amazon.com/ecs/home?region=us-east-2#/firstRun
+#      https://us-east-1.console.aws.amazon.com/ecs/home?region=us-east-1#/firstRun
 #    Replace the value of the `ECS_SERVICE` environment variable in the workflow below with the name you set for the Amazon ECS service.
 #    Replace the value of the `ECS_CLUSTER` environment variable in the workflow below with the name you set for the cluster.
 #
@@ -58,12 +58,18 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Upload artifact for deployment job
+      - name: Upload server artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: '${{ github.workspace }}/gym-buddie-server/target/*.jar'
 
+      - name: Upload client artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: java-app
+          path: '${{ github.workspace }}/gym-buddie-server/target/*.jar'
+          
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
