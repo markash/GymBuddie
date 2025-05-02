@@ -84,7 +84,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         with:
           context: ${{ github.workspace }}/gym-buddie-server
-          file: ./Dockerfile
+          file: ${{ github.workspace }}/gym-buddie-server/Dockerfile
           push: true
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECS_REGISTRY_ALIAS }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
       
