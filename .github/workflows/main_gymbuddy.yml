@@ -96,7 +96,12 @@ jobs:
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker buildx build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -f ${{ github.workspace }}/gym-buddie-server
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/u5b3x2m3
+          docker build -t com.github.markash/dev-ecr-repo ${{ github.workspace }}/gym-buddie-server
+          docker tag com.github.markash/dev-ecr-repo:latest public.ecr.aws/u5b3x2m3/com.github.markash/dev-ecr-repo:latest
+          docker push public.ecr.aws/u5b3x2m3/com.github.markash/dev-ecr-repo:latest
+          
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -f ${{ github.workspace }}/gym-buddie-server
           docker buildx push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker buildx push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           
