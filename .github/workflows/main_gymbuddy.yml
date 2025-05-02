@@ -83,8 +83,8 @@ jobs:
           ECR_REGISTRY: ${{ needs.authenticate.outputs.ecr_registry }}
           IMAGE_TAG: ${{ github.sha }}
         with:
-          context: .
-          file: ${{ github.workspace }}/gym-buddie-server/Dockerfile
+          context: ${{ github.workspace }}/gym-buddie-server
+          file: ./Dockerfile
           push: true
           tags: ${{ env.ECR_REGISTRY }}/${{ env.ECS_REGISTRY_ALIAS }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
       
