@@ -1,25 +1,25 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:590183895941:task-definition/task-definition-development:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:343218215658:task-definition/task-definition-development:1",
     "containerDefinitions": [
         {
-            "name": "GymBuddie",
-            "image": "sha256:0eba91d186a15cb95928ff05880d38c7e65f77a9d1883558518ee5e943d5e71f",
-            "cpu": 1024,
-            "memory": 3072,
-            "memoryReservation": 1024,
+            "name": "gym-buddie-server",
+            "image": "public.ecr.aws/u5b3x2m3/com.github.markash/dev-ecr-repo",
+            "cpu": 0,
             "portMappings": [
                 {
-                    "name": "gymbuddie-7001-tcp",
+                    "name": "container-port-protcol",
                     "containerPort": 7001,
-                    "hostPort": 80,
+                    "hostPort": 7001,
                     "protocol": "tcp",
                     "appProtocol": "http"
                 }
             ],
             "essential": true,
             "environment": [],
+            "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
+            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -27,15 +27,16 @@
                     "mode": "non-blocking",
                     "awslogs-create-group": "true",
                     "max-buffer-size": "25m",
-                    "awslogs-region": "us-east-2",
+                    "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                }
+                },
+                "secretOptions": []
             },
             "systemControls": []
         }
     ],
     "family": "task-definition-development",
-    "executionRoleArn": "arn:aws:iam::590183895941:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::343218215658:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "revision": 1,
     "volumes": [],
@@ -54,9 +55,6 @@
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.28"
         },
         {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
-        },
-        {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
         },
         {
@@ -72,7 +70,7 @@
         "FARGATE"
     ],
     "requiresCompatibilities": [
-        "EC2"
+        "FARGATE"
     ],
     "cpu": "1024",
     "memory": "3072",
@@ -80,8 +78,13 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2025-01-20T13:47:35.937Z",
-    "registeredBy": "arn:aws:iam::590183895941:root",
+    "registeredAt": "2025-05-02T15:58:37.695Z",
+    "registeredBy": "arn:aws:iam::343218215658:root",
     "enableFaultInjection": false,
-    "tags": []
+    "tags": [
+        {
+            "key": "Environment",
+            "value": "Development"
+        }
+    ]
 }
