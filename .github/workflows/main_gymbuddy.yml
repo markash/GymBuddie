@@ -30,7 +30,7 @@ jobs:
       id-token: write #This is required for requesting the JWT
       contents: read
     outputs:
-      ECS_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      ecr_registry: ${{ steps.login-ecr.outputs.registry }}
 
     steps:
       - name: Configure AWS credentials
@@ -80,7 +80,7 @@ jobs:
         id: build-image
         uses: docker/build-push-action@v6
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry  }}
+          ECR_REGISTRY: ${{ needs.authenticate.outputs.ecr_registry }}
           IMAGE_TAG: ${{ github.sha }}
         with:
           context: .
@@ -90,6 +90,8 @@ jobs:
       
       - name: Echo server image tag
         id: echo
+        env:
+          ECR_REGISTRY: ${{ needs.authenticate.outputs.ecr_registry }}
         run: echo ${{ env.ECR_REGISTRY }}/${{ env.ECS_REGISTRY_ALIAS }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
       
       - name: Fill in the new image ID in the Amazon ECS task definition
