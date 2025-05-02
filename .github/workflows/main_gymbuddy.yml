@@ -76,6 +76,19 @@ jobs:
           name: gym-buddie-server
           path: ${{ github.workspace }}/gym-buddie-server/target/*.jar
           
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::343218215658:role/GitHubAction-AssumeRoleWithAction
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
+          mask-password: 'false'
+
       - name: Build and push server container image
         id: build-image
         uses: docker/build-push-action@v6
