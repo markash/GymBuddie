@@ -96,9 +96,9 @@ jobs:
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -f ${{ github.workspace }}/gym-buddie-server
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker buildx build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -f ${{ github.workspace }}/gym-buddie-server
+          docker buildx push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker buildx push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           
       - name: Build and push server container image
         id: build-image
