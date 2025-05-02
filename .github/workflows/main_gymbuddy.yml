@@ -123,7 +123,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ${{ env.SERVER_ECS_TASK_DEFINITION }}
+          task-definition: ${{ github.workspace }}/gym-buddie-server/src/main/deployment/aws/task-definition-development.json
           container-name: ${{ env.SERVER_CONTAINER_NAME }}
           image: public.ecr.aws/u5b3x2m3/com.github.markash/dev-ecr-repo:latest
 
