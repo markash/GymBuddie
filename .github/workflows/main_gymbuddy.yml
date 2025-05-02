@@ -27,6 +27,7 @@ jobs:
   authenticate:
     runs-on: ubuntu-latest
     permissions:
+      id-token: write #This is required for requesting the JWT
       contents: read
     outputs:
       ECS_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
